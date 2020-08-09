@@ -9,6 +9,7 @@ const delay : number = 20
 const backColor : string = "#bdbdbd"
 const rot : number = Math.PI / 4 
 const rFactor : number = 12.8
+const circles = 4
 
 class ScaleUtil {
 
@@ -35,10 +36,10 @@ class DrawingUtil {
 
     static drawCircleRotSquare(context : CanvasRenderingContext2D, scale : number) {
         const sf : number = ScaleUtil.sinify(scale)
-        const sf1 : number = ScaleUtil.divideScale(sf, 0, parts)
-        const sf2 : number = ScaleUtil.divideScale(sf, 1, parts)
-        const sf3 : number = ScaleUtil.divideScale(sf, 2, parts)
-        const sf4 : number = ScaleUtil.divideScale(sf, 3, parts)
+        const sf1 : number = ScaleUtil.divideScale(sf, 0, parts + 1)
+        const sf2 : number = ScaleUtil.divideScale(sf, 1, parts + 1)
+        const sf3 : number = ScaleUtil.divideScale(sf, 2, parts + 1)
+        const sf4 : number = ScaleUtil.divideScale(sf, 3, parts + 1)
         const size : number = Math.min(w, h) / sizeFactor 
         const r : number = Math.min(w, h) / rFactor
         const dynSize : number = size * sf1 
@@ -46,7 +47,9 @@ class DrawingUtil {
         context.translate(w / 2, h / 2)
         context.rotate(rot * sf4)
         context.strokeRect(-dynSize, -dynSize, dynSize * 2, dynSize * 2)
-        DrawingUtil.drawCircle(context, size * sf3, size * sf3,r * sf2)
+        for (var j = 0; j < 4; j++) {
+            DrawingUtil.drawCircle(context, size * sf3, size * sf3,r * sf2)
+        }
         context.restore()
     }
 
