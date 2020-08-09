@@ -47,8 +47,11 @@ class DrawingUtil {
         context.translate(w / 2, h / 2)
         context.rotate(rot * sf4)
         context.strokeRect(-dynSize, -dynSize, dynSize * 2, dynSize * 2)
-        for (var j = 0; j < 4; j++) {
+        for (var j = 0; j < circles; j++) {
+            context.save()
+            context.rotate(j * Math.PI * 0.5)
             DrawingUtil.drawCircle(context, size * sf3, size * sf3,r * sf2)
+            context.restore()
         }
         context.restore()
     }
