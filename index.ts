@@ -197,3 +197,25 @@ class CircleRotSquare {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    crs : CircleRotSquare = new CircleRotSquare()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.crs.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.crs.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.crs.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
